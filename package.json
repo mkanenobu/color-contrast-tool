@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite --port=8080",
     "build": "tsc && vite build",
+    "build:gh-pages": "tsc && DEPLOY_ENV=gh-pages vite build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "@types/color": "^3.0.3",
+    "@types/node": "^17.0.21",
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",
     "@vitejs/plugin-react": "^1.0.7",
