@@ -7,4 +7,6 @@ interface WCAGCheckProps {
   backgroundColor: Color | null;
 }
 
-export const WCAGCheck: React.VFC<WCAGCheckProps> = (props) => {};
+export const WCAGCheck: React.VFC<WCAGCheckProps> = (props) => {
+  return <div />;
+};
