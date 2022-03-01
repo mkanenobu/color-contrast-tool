@@ -1,56 +1,59 @@
-import { useState } from "react";
-import { Page, Display, Spacer, Text, Button } from "@geist-ui/core";
-import { ChevronUpDown } from "@geist-ui/icons";
-import { ColorForm } from "./components/ColorForm";
-import { Example } from "./components/Example";
+import { useState, useMemo } from "react";
+import { Page, Text, Grid } from "@geist-ui/core";
 import { parseColor } from "./logic/parse_color";
+import { useWCAGStatus } from "./logic/wcag";
+import { LayoutLeft } from "./components/LayoutLeft";
+import { LayoutRight } from "./components/LayoutRight";
 
 export const App: React.VFC = () => {
   const [textColor, setTextColor] = useState<string>("#000000");
   const [backgroundColor, setBackgroundColor] = useState<string>("#FFFFFF");
 
-  const [sampleText, setSampleText] = useState<string>("Hello World!");
+  const parsedTextColor = useMemo(() => parseColor(textColor), [textColor]);
+  const parsedBackgroundColor = useMemo(
+    () => parseColor(backgroundColor),
+    [backgroundColor]
+  );
+
+  const contrastRatio = useMemo<number | null>(() => {
+    if (!parsedTextColor || !parsedBackgroundColor) {
+      return null;
+    }
+    return parsedTextColor.contrast(parsedBackgroundColor);
+  }, [parsedTextColor, parsedBackgroundColor]);
+
+  const wcagStatus = useWCAGStatus({
+    textColor: parsedTextColor,
+    backgroundColor: parsedBackgroundColor,
+  });
 
   return (
     <Page>
-      <Display>
-        <Text>Text color</Text>
-        <ColorForm
-          value={textColor}
-          onChange={(e) => setTextColor(e.target.value)}
-        />
+      <Text h1>Color Contrast Tool</Text>
+      <Grid.Container gap={2} direction="row" justify="space-evenly">
+        <Grid xs={12} direction="column">
+          <LayoutLeft
+            textColor={textColor}
+            backgroundColor={backgroundColor}
+            onChangeTextColor={setTextColor}
+            onChangeBackgroundColor={setBackgroundColor}
+            onClickSwapButton={() => {
+              const _textColor = textColor;
+              setTextColor(backgroundColor);
+              setBackgroundColor(_textColor);
+            }}
+            contrast={contrastRatio}
+          />
+        </Grid>
 
-        <Spacer />
-
-        <Button
-          onClick={() => {
-            const _textColor = textColor;
-            setTextColor(backgroundColor);
-            setBackgroundColor(_textColor);
-          }}
-          icon={<ChevronUpDown />}
-          auto
-          scale={2 / 3}
-        />
-
-        <Text>Background color</Text>
-
-        <ColorForm
-          value={backgroundColor}
-          onChange={(e) => setBackgroundColor(e.target.value)}
-        />
-
-        <Spacer />
-
-        <Text>Example</Text>
-        <Example
-          text={sampleText}
-          textColor={parseColor(textColor)}
-          backgroundColor={parseColor(backgroundColor)}
-        />
-
-        <Text>WCAG 2.0</Text>
-      </Display>
+        <Grid xs={12} direction="column">
+          <LayoutRight
+            textColor={parsedTextColor}
+            backgroundColor={parsedBackgroundColor}
+            wcagStatus={wcagStatus}
+          />
+        </Grid>
+      </Grid.Container>
     </Page>
   );
 };

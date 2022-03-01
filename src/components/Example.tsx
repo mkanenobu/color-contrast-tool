@@ -1,36 +1,54 @@
+import { useState } from "react";
 import Color from "color";
-import { Text, Grid } from "@geist-ui/core";
+import { Text, Card, Input } from "@geist-ui/core";
 import { convertToStyle } from "../logic/parse_color";
 
 interface ExampleProps {
-  text: string;
   textColor: Color | null;
   backgroundColor: Color | null;
 }
 
 export const Example: React.VFC<ExampleProps> = (props) => {
+  const [sampleText, setSampleText] = useState<string>("Hello World!");
+
   return (
-    <Grid>
-      <Text style={{ ...convertToStyle(props), padding: "4px 8px" }}>
-        Hello, World!
-      </Text>
+    <>
+      <Input
+        value={sampleText}
+        onChange={(e) => setSampleText(e.target.value)}
+      />
+
       <Text
         style={{
           ...convertToStyle(props),
           padding: "4px 8px",
+          whiteSpace: "pre",
         }}
       >
-        Hello, World!
+        {sampleText || " "}
       </Text>
+
+      <Text
+        style={{
+          ...convertToStyle(props),
+          padding: "4px 8px",
+          fontWeight: "bold",
+          whiteSpace: "pre",
+        }}
+      >
+        {sampleText || " "}
+      </Text>
+
       <Text
         style={{
           ...convertToStyle(props),
           padding: "4px 8px",
           fontSize: "18px",
+          whiteSpace: "pre",
         }}
       >
-        Hello, World!
+        {sampleText || " "}
       </Text>
-    </Grid>
+    </>
   );
 };

@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import Color from "color";
 import styles from "./ColorForm.module.css";
 import { Spacer, Input, Grid } from "@geist-ui/core";
@@ -25,14 +25,16 @@ interface ColorFormProps {
 
 export const ColorForm: React.VFC<ColorFormProps> = (props) => {
   return (
-    <Grid className={styles.container}>
+    <div className={styles.container}>
       <Input
         placeholder="input color..."
         value={props.value}
         onChange={props.onChange}
       />
-      <Spacer width={"4px"} />
+
+      <Spacer width={1} />
+
       <ColorTile color={parseColor(props.value)} />
-    </Grid>
+    </div>
   );
 };
