@@ -1,5 +1,5 @@
 import { Text, Spacer, Button, Card } from "@geist-ui/core";
-import ChevronUpDown from "@geist-ui/icons/ChevronUpDown";
+import ChevronUpDown from "@geist-ui/icons/chevronUpDown";
 import { ColorForm } from "./ColorForm";
 
 interface LayoutLeftProps {
