@@ -16,6 +16,7 @@ export const Example: React.VFC<ExampleProps> = (props) => {
       <Input
         value={sampleText}
         onChange={(e) => setSampleText(e.target.value)}
+        width="100%"
       />
 
       <Text

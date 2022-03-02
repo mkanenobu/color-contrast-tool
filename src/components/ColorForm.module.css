@@ -19,3 +19,8 @@
     transparent 51%
   );
 }
+
+.modalContent {
+  display: flex;
+  flex-direction: row;
+}

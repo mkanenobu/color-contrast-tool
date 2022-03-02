@@ -16,10 +16,7 @@ export const LayoutLeft: React.VFC<LayoutLeftProps> = (props) => {
     <>
       <Card>
         <Text>Text color</Text>
-        <ColorForm
-          value={props.textColor}
-          onChange={(e) => props.onChangeTextColor(e.target.value)}
-        />
+        <ColorForm value={props.textColor} onChange={props.onChangeTextColor} />
       </Card>
 
       <Spacer />
@@ -38,7 +35,7 @@ export const LayoutLeft: React.VFC<LayoutLeftProps> = (props) => {
         <Text>Background color</Text>
         <ColorForm
           value={props.backgroundColor}
-          onChange={(e) => props.onChangeBackgroundColor(e.target.value)}
+          onChange={props.onChangeBackgroundColor}
         />
       </Card>
 
@@ -49,7 +46,7 @@ export const LayoutLeft: React.VFC<LayoutLeftProps> = (props) => {
         <Text b i>
           {typeof props.contrast === "number"
             ? Math.floor(props.contrast * 100) / 100
-            : "Untestable"}
+            : "Untestable"} : 1
         </Text>
       </Card>
     </>
