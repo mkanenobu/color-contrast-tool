@@ -7,6 +7,10 @@ import { parseColor } from "../logic/parse_color";
 import { classNames } from "../logic/class_names";
 import { ModalHooksBindings } from "@geist-ui/core/dist/use-modal";
 
+const DisabledColorTile: React.VFC = () => {
+  return <div className={classNames([styles.tile, styles.tileDisabled])} />;
+};
+
 const ColorTile: React.VFC<{ color: Color | null; onClick?: () => void }> = (
   props
 ) => {
@@ -20,7 +24,7 @@ const ColorTile: React.VFC<{ color: Color | null; onClick?: () => void }> = (
     );
   }
 
-  return <div className={classNames([styles.tile, styles.tileDisabled])} />;
+  return <DisabledColorTile />;
 };
 
 interface ColorFormProps {
